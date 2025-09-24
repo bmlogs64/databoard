@@ -5,10 +5,7 @@ from app.services.data_service import buscar_e_tratar_dados
 
 app = FastAPI()
 
-origins = [
-    "https://bmlogs64.github.io/databoard",
-    "*" 
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,7 +19,7 @@ app.add_middleware(
 def dados():
     try:
         dados = buscar_e_tratar_dados()
-        return dados
+        return {"status": "sucesso", "dados": dados}
     except Exception as e:
         return {"status": "erro", "mensagem": str(e)}
 
