@@ -1,19 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-import os
 from app.services.data_service import buscar_e_tratar_dados
 
 app = FastAPI()
 
-origins = [
-    "https://bmlogs64.github.io",
-    "http://localhost:3000",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origin_regex=r"https://bmlogs64\.github\.io.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -33,7 +27,6 @@ def get_dados():
             status_code=500,
             ensure_ascii=False,
         )
-
 
 @app.get("/")
 def root():
