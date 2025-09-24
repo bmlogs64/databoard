@@ -13,13 +13,17 @@ def buscar_planilha():
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Erro ao acessar a planilha: {e}")
 
-    # Força leitura em UTF-8
     df = pd.read_csv(StringIO(resp.text), encoding="utf-8")
     return df
 
 def tratar_dados(df: pd.DataFrame) -> pd.DataFrame:
+
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors='coerce')
-    df["timestamp"] = df["timestamp"].dt.tz_localize("UTC").dt.tz_convert("America/Sao_Paulo")
+
+    if df["timestamp"].dt.tz is None:
+        df["timestamp"] = df["timestamp"].dt.tz_localize("UTC").dt.tz_convert("America/Sao_Paulo")
+    else:
+        df["timestamp"] = df["timestamp"].dt.tz_convert("America/Sao_Paulo")
     
     df["cpf"] = df["cpf"].astype(str).str.zfill(11)
     df["cpf"] = df["cpf"].apply(lambda x: f"{x[:3]}.{x[3:6]}.{x[6:9]}-{x[9:]}")
