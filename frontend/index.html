@@ -7,21 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Dashboard de Dados</h1>
-    <table id="tabela">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Email</th>
-                <th>CPF</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Dashboard de Dados</h1>
+
+        <table id="tabela">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td><input type="text" id="filtro-nome" placeholder="Filtrar Nome"></td>
+            <td><input type="text" id="filtro-telefone" placeholder="Filtrar Telefone"></td>
+            <td><input type="text" id="filtro-email" placeholder="Filtrar Email"></td>
+            <td><input type="text" id="filtro-cpf" placeholder="Filtrar CPF"></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+        <div class="paginacao">
+            <button id="prev">Anterior</button>
+            <span id="info-pagina">Página 1</span>
+            <button id="next">Próxima</button>
+            <input type="number" id="input-pagina" min="1" style="width:50px" placeholder="Página">
+            <button id="go">Ir</button>
+        </div>
+
+        <p id="total-registros"></p>
+    </div>
 
     <script src="script.js"></script>
 </body>
