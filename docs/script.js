@@ -9,6 +9,7 @@ async function carregarDados() {
     try {
         const resposta = await fetch("https://databoard-backend.onrender.com/dados");
         const resultado = await resposta.json();
+        console.log(resultado);
 
         if (resultado.status === "sucesso" && Array.isArray(resultado.dados)) {
             dados = resultado.dados;
@@ -38,6 +39,8 @@ function mostrarErroNaTabela(mensagem) {
 }
 
 function aplicarFiltros(dados) {
+    if (!Array.isArray(dados)) dados = [];
+    
     const filtroNome = document.getElementById("filtro-nome").value.toLowerCase();
     const filtroTelefone = document.getElementById("filtro-telefone").value.toLowerCase();
     const filtroEmail = document.getElementById("filtro-email").value.toLowerCase();
@@ -50,6 +53,7 @@ function aplicarFiltros(dados) {
         item.cpf.toLowerCase().includes(filtroCpf)
     );
 }
+
 
 function atualizarTabela() {
     const tbody = document.querySelector("#tabela tbody");
