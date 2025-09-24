@@ -6,7 +6,10 @@ from app.services.data_service import buscar_e_tratar_dados
 
 app = FastAPI()
 
-origins = ["*"]
+origins = [
+    "https://bmlogs64.github.io/databoard",
+    "http://localhost:3000",
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,7 +25,7 @@ def get_dados():
         dados = buscar_e_tratar_dados()
         return JSONResponse(
             content={"status": "sucesso", "dados": dados},
-            ensure_ascii=False,  # Mantém acentos/ç/ã/etc.
+            ensure_ascii=False,
         )
     except Exception as e:
         return JSONResponse(

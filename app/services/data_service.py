@@ -14,7 +14,7 @@ def buscar_planilha():
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Erro ao acessar a planilha: {e}")
 
-    df = pd.read_csv(StringIO(resp.text), encoding="utf-8")
+    df = pd.read_csv(StringIO(resp.content.decode("utf-8-sig")))
     return df
 
 
