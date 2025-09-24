@@ -7,7 +7,7 @@ from app.services.data_service import buscar_e_tratar_dados
 app = FastAPI()
 
 origins = [
-    "https://bmlogs64.github.io/databoard",
+    "https://bmlogs64.github.io",
     "http://localhost:3000",
 ]
 
