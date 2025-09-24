@@ -4,8 +4,16 @@ from io import StringIO
 from app.config import URL_PLANILHA
 
 def buscar_planilha():
-    resp = requests.get(URL_PLANILHA)
-    resp.raise_for_status()
+
+    if not URL_PLANILHA:
+        raise ValueError("A URL da planilha não está definida no .env")
+
+    try:
+        resp = requests.get(URL_PLANILHA, timeout=10)
+        resp.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Erro ao acessar a planilha: {e}")
+
     df = pd.read_csv(StringIO(resp.text))
     return df
 
@@ -17,18 +25,25 @@ def tratar_dados(df: pd.DataFrame) -> pd.DataFrame:
     df["cpf"] = df["cpf"].apply(lambda x: f"{x[:3]}.{x[3:6]}.{x[6:9]}-{x[9:]}")
     
     def formatar_telefone(numero: str) -> str:
-        numero = str(numero).replace(" ", "")
-        if numero.startswith("+55"):
-            ddd = numero[3:5]
-            resto = numero[5:]
-            if len(resto) == 9:
-                return f"+55 ({ddd}) {resto[:5]}-{resto[5:]}"
-            elif len(resto) == 8:
-                return f"+55 ({ddd}) {resto[:4]}-{resto[4:]}"
-        return numero
+        numero = str(numero).replace(" ", "").replace("+", "")
+    
+        if numero.startswith("55"):
+            numero = numero[2:]
+
+        ddd = numero[:2]
+        restante = numero[2:]
+    
+        if len(restante) == 9:
+            return f"+55 ({ddd}) {restante[:5]}-{restante[5:]}"
+        elif len(restante) == 8:
+            return f"+55 ({ddd}) {restante[:4]}-{restante[4:]}"
+        else:
+            return f"+55 ({ddd}) {restante}"
+
 
     df["numero"] = df["numero"].apply(formatar_telefone)
     df["data_formatada"] = df["timestamp"].dt.strftime("%d/%m/%Y %H:%M:%S")
+
     return df
 
 def buscar_e_tratar_dados():
