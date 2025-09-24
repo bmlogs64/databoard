@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from app.data_service import buscar_e_tratar_dados
+from app.services.data_service import buscar_e_tratar_dados
 
 app = FastAPI()
 
