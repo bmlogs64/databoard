@@ -58,4 +58,3 @@ def buscar_e_tratar_dados():
     dados_serializaveis = df_tratado[colunas_json].to_dict(orient="records")
     
     return {"status": "sucesso", "dados": dados_serializaveis}
-

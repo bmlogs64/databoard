@@ -10,13 +10,14 @@ async function carregarDados() {
         const resposta = await fetch("https://databoard-backend.onrender.com/dados");
         const resultado = await resposta.json();
 
-        if (resultado.status === "sucesso") {
+        if (resultado.status === "sucesso" && Array.isArray(resultado.dados)) {
             dados = resultado.dados;
             paginaAtual = 1;
             atualizarTabela();
         } else {
-            mostrarErroNaTabela("Erro ao carregar dados: " + resultado.mensagem);
-        }
+            dados = [];
+            mostrarErroNaTabela("Erro ao carregar dados: " + (resultado.mensagem || "Formato inválido"));
+}
     } catch (error) {
         console.error(error);
         mostrarErroNaTabela("Erro ao conectar com a API.");
