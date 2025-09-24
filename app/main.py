@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import os
 from app.services.data_service import buscar_e_tratar_dados
 
@@ -19,9 +20,15 @@ app.add_middleware(
 def dados():
     try:
         dados = buscar_e_tratar_dados()
-        return {"status": "sucesso", "dados": dados}
+        return JSONResponse(
+            content={"status": "sucesso", "dados": dados},
+            media_type="application/json; charset=utf-8"
+        )
     except Exception as e:
-        return {"status": "erro", "mensagem": str(e)}
+        return JSONResponse(
+            content={"status": "erro", "mensagem": str(e)},
+            media_type="application/json; charset=utf-8"
+        )
 
 if __name__ == "__main__":
     import uvicorn
