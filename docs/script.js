@@ -7,7 +7,7 @@ async function carregarDados() {
     tbody.innerHTML = "<tr><td colspan='5' style='text-align:center'>Carregando...</td></tr>";
 
     try {
-        const resposta = await fetch("https://databoard-backend.onrender.com");
+        const resposta = await fetch("https://databoard-backend.onrender.com/dados");
         const resultado = await resposta.json();
 
         if (resultado.status === "sucesso") {
