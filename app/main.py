@@ -5,9 +5,14 @@ from app.services.data_service import buscar_e_tratar_dados
 
 app = FastAPI()
 
+origins = [
+    "https://bmlogs64.github.io",
+    "http://localhost:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://bmlogs64\.github\.io.*",
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -19,7 +24,9 @@ def get_dados():
         dados = buscar_e_tratar_dados()
         return JSONResponse(
             content={"status": "sucesso", "dados": dados},
-            ensure_ascii=False,
+            status_code=200,
+            media_type="application/json",
+            ensure_ascii=False,  # mantém ç, ~, á, etc.
         )
     except Exception as e:
         return JSONResponse(
