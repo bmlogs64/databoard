@@ -53,4 +53,9 @@ def tratar_dados(df: pd.DataFrame) -> pd.DataFrame:
 def buscar_e_tratar_dados():
     df = buscar_planilha()
     df_tratado = tratar_dados(df)
-    return {"status": "sucesso", "dados": df_tratado.to_dict(orient="records")}
+    
+    colunas_json = ["nome", "numero", "email", "cpf", "data_formatada"]
+    dados_serializaveis = df_tratado[colunas_json].to_dict(orient="records")
+    
+    return {"status": "sucesso", "dados": dados_serializaveis}
+
