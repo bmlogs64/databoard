@@ -37,4 +37,4 @@ A tabela no frontend foi feita com JavaScript puro, com suporte a filtros, pagin
 O projeto foi estruturado de forma modular, separando serviços (data_service) e configuração principal (main.py) no backend.
 
 ⚠️ Como o Render está no plano gratuito, o servidor pode “hibernar” após algum tempo de inatividade. Nesse caso, preciso religar manualmente o serviço.
-👉 Se você estiver testando e a API retornar erro, me avise para que eu religue o servidor.
+👉 Se você estiver testando e a API retornar erro ou carregar infinitamente, me avise para que eu religue o servidor.
