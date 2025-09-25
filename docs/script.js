@@ -89,7 +89,6 @@ function atualizarTabela() {
     document.getElementById("info-pagina").textContent = `Página ${paginaAtual} de ${totalPaginas}`;
     document.getElementById("total-registros").textContent = `Total de registros: ${dadosFiltrados.length}`;
 
-    // Habilita/desabilita botões
     document.getElementById("prev").disabled = paginaAtual === 1;
     document.getElementById("next").disabled = paginaAtual === totalPaginas;
 }
