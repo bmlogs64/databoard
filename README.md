@@ -1,6 +1,8 @@
 # 📊 Databoard
 
 Este projeto é uma aplicação **fullstack** para visualização de dados.
+🔗 [Acesse a aplicação aqui:] (https://bmlogs64.github.io/databoard/)
+
 O **backend** foi desenvolvido em **Python com FastAPI** e está hospedado no **Render**.
 O **frontend** é uma página estática em **HTML, CSS e JavaScript**, hospedada no **GitHub Pages**, que consome os dados da API e os exibe em uma tabela dinâmica com filtros e paginação.
 
